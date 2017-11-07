@@ -14,8 +14,10 @@ class textrect(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = xpos
         self.rect.y = ypos
+
+
 def winner():
-    Congratulations = textrect("Arial ","Congratulations! You have won the game!",36,50,300,255,0,0)
+    Congratulations = textrect("Arial ","Congratulations! You have won the game!",36,50,300,0,255,0)
     screen = pygame.display.set_mode((600, 600))
     pygame.mouse.set_visible(True)
 
@@ -30,7 +32,7 @@ def winner():
              if c.type == MOUSEBUTTONDOWN:
                  pygame.quit()
         else:
-            Congratulations = textrect("Arial ","Congratulations! You have won the game!",36,50,300,255,0,0)
+            Congratulations = textrect("Arial ","Congratulations! You have won the game!",36,50,300,0,0,255)
         pygame.display.update()
 
 
@@ -70,8 +72,6 @@ class level1:
     #reference list
     def __init__(self):
         self.screen = pygame.display.set_mode((600, 600))
-
-        # pygame.display.set_mode((width, height)) - This will launch a window of the desired size
         self.blocks = []
         self.paddle = [[pygame.Rect(300, 500, 20, 10), 120],
                 [pygame.Rect(320, 500, 20, 10), 100],
@@ -180,12 +180,12 @@ class level2:
         self.screen = pygame.display.set_mode((600, 600))
         #pygame.display.set_mode((width, height)) - This will launch a window of the desired size
         self.blocks = []
-        self.paddle = [[pygame.Rect(300, 500, 20, 10), 120],
-                [pygame.Rect(320, 500, 20, 10), 100],
-                [pygame.Rect(340, 500, 20, 10), 80],
-                [pygame.Rect(360, 500, 20, 10), 45],]
+        self.paddle = [[pygame.Rect(300, 400, 12, 10), 120],
+                [pygame.Rect(320, 400, 12, 10), 100],
+                [pygame.Rect(340, 400, 12, 10), 80],
+                [pygame.Rect(360, 400, 12, 10), 45],]
         self.ball = pygame.Rect(300, 500 , 5, 5)
-        self.direction = -2
+        self.direction = -3
         self.yDirection = -1
         self.angle = 80
         self.speeds = {
@@ -206,7 +206,7 @@ class level2:
 
     def createBlocks(self):
         self.blocks = []
-        y = 50#y axis of the block in the game
+        y = 100#y axis of the block in the game
         for __ in range(200 // 20):
             x = 210  #x axis of the blocks in the game
             for _ in range(200 // 20 - 5):  #the 200 inside d bracket explains how many blocks r there in this stage of the game
@@ -260,7 +260,7 @@ class level2:
         pos = pygame.mouse.get_pos()
         on = 0
         for p in self.paddle:
-            p[0].x = pos[0] + 20 * on
+            p[0].x = pos[0] + 12 * on
             on += 1
     def main(self):
         pygame.mouse.set_visible(False)
@@ -268,7 +268,7 @@ class level2:
         self.createBlocks()
         background_image= pygame.image.load("LEVEL2.jpg").convert()
         while True:
-            clock.tick(30)
+            clock.tick(50)
             for event in pygame.event.get():
                 if event.type == QUIT:
                     sys.exit()
@@ -281,7 +281,7 @@ class level2:
             for paddle in self.paddle:
                 pygame.draw.rect(self.screen, (255,255,255), paddle[0])
             pygame.draw.rect(self.screen, (255,255,255), self.ball)
-            self.screen.blit(self.font.render(str(self.score), -1, (255,255,255)), (400, 550))
+            self.screen.blit(self.font.render(str(self.score), -1, (255,255,255)), (300, 550))
             pygame.display.update()
 
 def menu():
